@@ -1,68 +1,65 @@
-# CodeIgniter 4 Application Starter
 
-## What is CodeIgniter?
+# Projeto Contacts API
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Pré-Requisitos
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+- PHP 8 ou superior
+- MySQL Server
+- CodeIgniter 4
+- Composer
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Visão Geral
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+Esta API permite gerenciar contatos, incluindo seus endereços, telefones e emails. Ela utiliza o formato JSON para as requisições e respostas e segue os princípios RESTful.
 
-## Installation & updates
+**Importante**: O campo CEP é obrigatório caso você envie algum endereço junto com o contato. O sistema buscará automaticamente os dados do endereço (logradouro, bairro, cidade, estado) utilizando a API do ViaCEP.
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## Instalação
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+Para instalar o projeto, siga os passos abaixo:
 
-## Setup
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+   cd nome-do-repositorio
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+2. Instale as dependências do Composer:
+    ```bash
+    composer install
 
-## Important Change with index.php
+3. Crie um banco de dados MySQL para o projeto. Nesse exemplo, o nome do banco de dados é contacts.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+4. Configure o arquivo .env na raiz do projeto com as variáveis de ambiente para o banco de dados:
+    ```bash
+    database.default.hostname = localhost
+    database.default.database = contacts
+    database.default.username = usuario_do_banco
+    database.default.password = senha_do_usuario
+    database.default.DBDriver = MySQLi
+    database.default.port = 3306
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+5. Execute as migrações para criar as tabelas necessárias no banco de dados:
+    ```bash
+    php spark migrate
 
-**Please** read the user guide for a better explanation of how CI4 works!
+6. Inicie o servidor de desenvolvimento do CodeIgniter:
+    ```bash
+    php spark serve
 
-## Repository Management
+7. Acesse a documentação da API no Postman e aprenda como executá-la [aqui](https://www.postman.com/winter-meteor-689499/workspace/)
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Endpoints da API
 
-## Server Requirements
+Nossa API possui os seguintes endpoints:
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+- GET /contacts: Lista todos os contatos.
+- POST /contacts: Cria um novo contato.
+- PUT /contacts/{id}: Atualiza um contato existente.
+- DELETE /contacts/{id}: Deleta um contato.
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+## 🔗 Links
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+[Documentação API - Postman](https://www.postman.com/winter-meteor-689499/workspace/ci-contacts/overview)
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
