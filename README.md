@@ -20,8 +20,8 @@ Para instalar o projeto, siga os passos abaixo:
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
-   cd nome-do-repositorio
+   git clone https://github.com/fndrorato/ci-contacts.git
+   cd ci-contacts
 
 2. Instale as dependências do Composer:
     ```bash
